@@ -1,7 +1,0 @@
-setup.py
-group11_tue4tm00_assignment1/__init__.py
-group11_tue4tm00_assignment1/my_module.py
-group11_tue4tm00_assignment1.egg-info/PKG-INFO
-group11_tue4tm00_assignment1.egg-info/SOURCES.txt
-group11_tue4tm00_assignment1.egg-info/dependency_links.txt
-group11_tue4tm00_assignment1.egg-info/top_level.txt
