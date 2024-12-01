@@ -1,1 +1,0 @@
-ament_cmake_symlink_install_targets("TARGET_FILES" "/home/frydjak/4TM00_Assignment1_ws/tue4tm00_group11/build/group11_tue4tm00_assignment1/cpp_node" "TARGETS" "cpp_node" "DESTINATION" "lib/group11_tue4tm00_assignment1")
