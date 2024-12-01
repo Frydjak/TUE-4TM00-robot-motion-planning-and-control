@@ -1,0 +1,103 @@
+[0.060s] Invoking command in '/home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/build/group11_tue4tm00_assignment1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/donaku/tue4tm00_ws/install/my_first_ros_pkg_py:/opt/ros/humble /usr/bin/cmake /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/group11_tue4tm00_assignment1 -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1
+[0.653s] -- The C compiler identification is GNU 11.4.0
+[1.924s] -- The CXX compiler identification is GNU 11.4.0
+[2.935s] -- Detecting C compiler ABI info
+[3.228s] -- Detecting C compiler ABI info - done
+[3.241s] -- Check for working C compiler: /usr/bin/cc - skipped
+[3.242s] -- Detecting C compile features
+[3.243s] -- Detecting C compile features - done
+[3.251s] -- Detecting CXX compiler ABI info
+[3.576s] -- Detecting CXX compiler ABI info - done
+[3.587s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[3.588s] -- Detecting CXX compile features
+[3.588s] -- Detecting CXX compile features - done
+[3.681s] -- Found ament_cmake: 1.3.10 (/opt/ros/humble/share/ament_cmake/cmake)
+[3.985s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[4.113s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[4.245s] -- Found rclcpp: 16.0.10 (/opt/ros/humble/share/rclcpp/cmake)
+[4.814s] -- Found rosidl_generator_c: 3.1.5 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[4.831s] -- Found rosidl_adapter: 3.1.5 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[4.869s] -- Found rosidl_generator_cpp: 3.1.5 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[4.941s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[4.999s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[5.178s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[5.188s] -- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[7.851s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[10.900s] -- Found FastRTPS: /opt/ros/humble/include  
+[15.833s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[15.863s] -- Looking for pthread.h
+[16.050s] -- Looking for pthread.h - found
+[16.050s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[16.291s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[16.292s] -- Found Threads: TRUE  
+[16.426s] -- Found rclpy: 3.3.14 (/opt/ros/humble/share/rclpy/cmake)
+[16.588s] -- Found ament_lint_auto: 0.12.11 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[16.748s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[16.749s] -- Configured cppcheck include dirs: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/group11_tue4tm00_assignment1/include
+[16.749s] -- Configured cppcheck exclude dirs and/or files: 
+[16.752s] -- Added test 'flake8' to check Python code syntax and style conventions
+[16.753s] -- Added test 'lint_cmake' to check CMake code style
+[16.758s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[16.761s] -- Added test 'uncrustify' to check C / C++ code style
+[16.761s] -- Configured uncrustify additional arguments: 
+[16.763s] -- Added test 'xmllint' to check XML markup files
+[16.771s] -- Configuring done
+[16.793s] -- Generating done
+[16.803s] -- Build files have been written to: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/build/group11_tue4tm00_assignment1
+[16.818s] Invoked command in '/home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/build/group11_tue4tm00_assignment1' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/donaku/tue4tm00_ws/install/my_first_ros_pkg_py:/opt/ros/humble /usr/bin/cmake /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/group11_tue4tm00_assignment1 -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1
+[16.819s] Invoking command in '/home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/build/group11_tue4tm00_assignment1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/donaku/tue4tm00_ws/install/my_first_ros_pkg_py:/opt/ros/humble /usr/bin/cmake --build /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/build/group11_tue4tm00_assignment1 -- -j16 -l16
+[16.877s] [ 50%] [32mBuilding CXX object CMakeFiles/cpp_node.dir/src/cpp_node.cpp.o[0m
+[16.885s] [ 50%] Built target ament_cmake_python_symlink_group11_tue4tm00_assignment1
+[16.922s] [100%] [32m[1mLinking CXX executable cpp_node[0m
+[17.172s] [100%] Built target cpp_node
+[17.307s] running egg_info
+[17.308s] creating group11_tue4tm00_assignment1.egg-info
+[17.308s] writing group11_tue4tm00_assignment1.egg-info/PKG-INFO
+[17.308s] writing dependency_links to group11_tue4tm00_assignment1.egg-info/dependency_links.txt
+[17.308s] writing top-level names to group11_tue4tm00_assignment1.egg-info/top_level.txt
+[17.308s] writing manifest file 'group11_tue4tm00_assignment1.egg-info/SOURCES.txt'
+[17.311s] reading manifest file 'group11_tue4tm00_assignment1.egg-info/SOURCES.txt'
+[17.312s] writing manifest file 'group11_tue4tm00_assignment1.egg-info/SOURCES.txt'
+[17.339s] [100%] Built target ament_cmake_python_build_group11_tue4tm00_assignment1_egg
+[17.351s] Invoked command in '/home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/build/group11_tue4tm00_assignment1' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/donaku/tue4tm00_ws/install/my_first_ros_pkg_py:/opt/ros/humble /usr/bin/cmake --build /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/build/group11_tue4tm00_assignment1 -- -j16 -l16
+[17.375s] Invoking command in '/home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/build/group11_tue4tm00_assignment1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/donaku/tue4tm00_ws/install/my_first_ros_pkg_py:/opt/ros/humble /usr/bin/cmake --install /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/build/group11_tue4tm00_assignment1
+[17.380s] -- Install configuration: ""
+[17.380s] -- Execute custom install script
+[17.380s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/lib/group11_tue4tm00_assignment1/cpp_node
+[17.388s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/environment/pythonpath.sh
+[17.396s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/environment/pythonpath.dsv
+[17.412s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/local/lib/python3.10/dist-packages/group11_tue4tm00_assignment1-0.0.0-py3.10.egg-info/PKG-INFO
+[17.424s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/local/lib/python3.10/dist-packages/group11_tue4tm00_assignment1-0.0.0-py3.10.egg-info/SOURCES.txt
+[17.431s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/local/lib/python3.10/dist-packages/group11_tue4tm00_assignment1-0.0.0-py3.10.egg-info/dependency_links.txt
+[17.439s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/local/lib/python3.10/dist-packages/group11_tue4tm00_assignment1-0.0.0-py3.10.egg-info/top_level.txt
+[17.450s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/local/lib/python3.10/dist-packages/group11_tue4tm00_assignment1/__init__.py
+[17.457s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/local/lib/python3.10/dist-packages/group11_tue4tm00_assignment1/my_module.py
+[17.468s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/lib/group11_tue4tm00_assignment1/safe_twist_teleop_2D.py
+[17.476s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/lib/group11_tue4tm00_assignment1/safe_reactive_navigation.py
+[17.490s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1//launch/demo_safe_reactive_navigation.launch.py
+[17.499s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1//launch/demo_safe_twist_teleop_2D.launch.py
+[17.506s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1//launch/empty.launch.py
+[17.518s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1//launch/safe_reactive_navigation.launch.py
+[17.525s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1//launch/safe_twist_teleop_2D.launch.py
+[17.533s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1//config/empty.yaml
+[17.541s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1//config/safe_reactive_navigation.yaml
+[17.548s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1//config/safe_twist_teleop_2D.yaml
+[17.557s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/ament_index/resource_index/package_run_dependencies/group11_tue4tm00_assignment1
+[17.565s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/ament_index/resource_index/parent_prefix_path/group11_tue4tm00_assignment1
+[17.578s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/environment/ament_prefix_path.sh
+[17.588s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/environment/ament_prefix_path.dsv
+[17.597s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/environment/path.sh
+[17.609s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/environment/path.dsv
+[17.625s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/local_setup.bash
+[17.634s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/local_setup.sh
+[17.643s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/local_setup.zsh
+[17.650s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/local_setup.dsv
+[17.661s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/package.dsv
+[17.670s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/ament_index/resource_index/packages/group11_tue4tm00_assignment1
+[17.684s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/cmake/group11_tue4tm00_assignment1Config.cmake
+[17.696s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/cmake/group11_tue4tm00_assignment1Config-version.cmake
+[17.704s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/package.xml
+[17.770s] Listing '/home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/local/lib/python3.10/dist-packages/group11_tue4tm00_assignment1'...
+[17.770s] Compiling '/home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/local/lib/python3.10/dist-packages/group11_tue4tm00_assignment1/__init__.py'...
+[17.770s] Compiling '/home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/local/lib/python3.10/dist-packages/group11_tue4tm00_assignment1/my_module.py'...
+[17.781s] Invoked command in '/home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/build/group11_tue4tm00_assignment1' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/donaku/tue4tm00_ws/install/my_first_ros_pkg_py:/opt/ros/humble /usr/bin/cmake --install /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/build/group11_tue4tm00_assignment1

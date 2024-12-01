@@ -1,0 +1,50 @@
+[0.044s] Invoking command in '/home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/build/group11_tue4tm00_assignment1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/donaku/tue4tm00_ws/install/my_first_ros_pkg_py:/opt/ros/humble /usr/bin/cmake --build /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/build/group11_tue4tm00_assignment1 -- -j16 -l16
+[0.133s] [100%] Built target cpp_node
+[0.173s] [100%] Built target ament_cmake_python_symlink_group11_tue4tm00_assignment1
+[0.612s] running egg_info
+[0.613s] writing group11_tue4tm00_assignment1.egg-info/PKG-INFO
+[0.614s] writing dependency_links to group11_tue4tm00_assignment1.egg-info/dependency_links.txt
+[0.614s] writing top-level names to group11_tue4tm00_assignment1.egg-info/top_level.txt
+[0.617s] reading manifest file 'group11_tue4tm00_assignment1.egg-info/SOURCES.txt'
+[0.619s] writing manifest file 'group11_tue4tm00_assignment1.egg-info/SOURCES.txt'
+[0.661s] [100%] Built target ament_cmake_python_build_group11_tue4tm00_assignment1_egg
+[0.679s] Invoked command in '/home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/build/group11_tue4tm00_assignment1' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/donaku/tue4tm00_ws/install/my_first_ros_pkg_py:/opt/ros/humble /usr/bin/cmake --build /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/build/group11_tue4tm00_assignment1 -- -j16 -l16
+[0.698s] Invoking command in '/home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/build/group11_tue4tm00_assignment1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/donaku/tue4tm00_ws/install/my_first_ros_pkg_py:/opt/ros/humble /usr/bin/cmake --install /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/build/group11_tue4tm00_assignment1
+[0.706s] -- Install configuration: ""
+[0.706s] -- Execute custom install script
+[0.707s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/lib/group11_tue4tm00_assignment1/cpp_node
+[0.713s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/environment/pythonpath.sh
+[0.713s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/environment/pythonpath.dsv
+[0.713s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/local/lib/python3.10/dist-packages/group11_tue4tm00_assignment1-0.0.0-py3.10.egg-info/PKG-INFO
+[0.714s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/local/lib/python3.10/dist-packages/group11_tue4tm00_assignment1-0.0.0-py3.10.egg-info/SOURCES.txt
+[0.714s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/local/lib/python3.10/dist-packages/group11_tue4tm00_assignment1-0.0.0-py3.10.egg-info/dependency_links.txt
+[0.714s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/local/lib/python3.10/dist-packages/group11_tue4tm00_assignment1-0.0.0-py3.10.egg-info/top_level.txt
+[0.715s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/local/lib/python3.10/dist-packages/group11_tue4tm00_assignment1/__init__.py
+[0.715s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/local/lib/python3.10/dist-packages/group11_tue4tm00_assignment1/my_module.py
+[0.716s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/lib/group11_tue4tm00_assignment1/safe_twist_teleop_2D.py
+[0.716s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/lib/group11_tue4tm00_assignment1/safe_reactive_navigation.py
+[0.717s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1//launch/demo_safe_reactive_navigation.launch.py
+[0.717s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1//launch/demo_safe_twist_teleop_2D.launch.py
+[0.718s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1//launch/empty.launch.py
+[0.718s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1//launch/safe_reactive_navigation.launch.py
+[0.721s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1//launch/safe_twist_teleop_2D.launch.py
+[0.722s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1//config/empty.yaml
+[0.722s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1//config/safe_reactive_navigation.yaml
+[0.722s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1//config/safe_twist_teleop_2D.yaml
+[0.723s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/ament_index/resource_index/package_run_dependencies/group11_tue4tm00_assignment1
+[0.723s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/ament_index/resource_index/parent_prefix_path/group11_tue4tm00_assignment1
+[0.723s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/environment/ament_prefix_path.sh
+[0.723s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/environment/ament_prefix_path.dsv
+[0.724s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/environment/path.sh
+[0.724s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/environment/path.dsv
+[0.724s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/local_setup.bash
+[0.724s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/local_setup.sh
+[0.724s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/local_setup.zsh
+[0.724s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/local_setup.dsv
+[0.724s] -- Symlinking: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/package.dsv
+[0.744s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/ament_index/resource_index/packages/group11_tue4tm00_assignment1
+[0.744s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/cmake/group11_tue4tm00_assignment1Config.cmake
+[0.745s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/cmake/group11_tue4tm00_assignment1Config-version.cmake
+[0.745s] -- Up-to-date symlink: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/share/group11_tue4tm00_assignment1/package.xml
+[0.806s] Listing '/home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/local/lib/python3.10/dist-packages/group11_tue4tm00_assignment1'...
+[0.822s] Invoked command in '/home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/build/group11_tue4tm00_assignment1' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/donaku/tue4tm00_ws/install/my_first_ros_pkg_py:/opt/ros/humble /usr/bin/cmake --install /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/build/group11_tue4tm00_assignment1

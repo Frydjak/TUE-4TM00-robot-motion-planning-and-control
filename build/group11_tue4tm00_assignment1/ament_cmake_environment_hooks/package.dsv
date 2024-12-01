@@ -1,0 +1,4 @@
+source;share/group11_tue4tm00_assignment1/local_setup.bash
+source;share/group11_tue4tm00_assignment1/local_setup.dsv
+source;share/group11_tue4tm00_assignment1/local_setup.sh
+source;share/group11_tue4tm00_assignment1/local_setup.zsh
