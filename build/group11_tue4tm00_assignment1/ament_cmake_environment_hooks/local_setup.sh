@@ -2,7 +2,7 @@
 
 # since this file is sourced use either the provided AMENT_CURRENT_PREFIX
 # or fall back to the destination set at configure time
-: ${AMENT_CURRENT_PREFIX:="/home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1"}
+: ${AMENT_CURRENT_PREFIX:="/home/frydjak/4TM00_Assignment1_ws/tue4tm00_group11/install/group11_tue4tm00_assignment1"}
 if [ ! -d "$AMENT_CURRENT_PREFIX" ]; then
   if [ -z "$COLCON_CURRENT_PREFIX" ]; then
     echo "The compile time prefix path '$AMENT_CURRENT_PREFIX' doesn't " \

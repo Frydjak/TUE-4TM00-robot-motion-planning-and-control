@@ -1,8 +1,8 @@
-# Install script for directory: /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/group11_tue4tm00_assignment1
+# Install script for directory: /home/frydjak/4TM00_Assignment1_ws/tue4tm00_group11/group11_tue4tm00_assignment1
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1")
+  set(CMAKE_INSTALL_PREFIX "/home/frydjak/4TM00_Assignment1_ws/tue4tm00_group11/install/group11_tue4tm00_assignment1")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -43,14 +43,14 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  include("/home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/build/group11_tue4tm00_assignment1/ament_cmake_symlink_install/ament_cmake_symlink_install.cmake")
+  include("/home/frydjak/4TM00_Assignment1_ws/tue4tm00_group11/build/group11_tue4tm00_assignment1/ament_cmake_symlink_install/ament_cmake_symlink_install.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   execute_process(
         COMMAND
         "/usr/bin/python3" "-m" "compileall"
-        "/home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/install/group11_tue4tm00_assignment1/local/lib/python3.10/dist-packages/group11_tue4tm00_assignment1"
+        "/home/frydjak/4TM00_Assignment1_ws/tue4tm00_group11/install/group11_tue4tm00_assignment1/local/lib/python3.10/dist-packages/group11_tue4tm00_assignment1"
       )
 endif()
 
@@ -62,5 +62,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/build/group11_tue4tm00_assignment1/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/frydjak/4TM00_Assignment1_ws/tue4tm00_group11/build/group11_tue4tm00_assignment1/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

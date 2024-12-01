@@ -1,7 +1,7 @@
 # generated from
 # ament_cmake_core/cmake/symlink_install/ament_cmake_symlink_install_uninstall_script.cmake.in
 
-set(install_manifest "/home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/build/group11_tue4tm00_assignment1/symlink_install_manifest.txt")
+set(install_manifest "/home/frydjak/4TM00_Assignment1_ws/tue4tm00_group11/build/group11_tue4tm00_assignment1/symlink_install_manifest.txt")
 if(NOT EXISTS "${install_manifest}")
   message(FATAL_ERROR "Cannot find symlink install manifest: ${install_manifest}")
 endif()

@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/group11_tue4tm00_assignment1
+CMAKE_SOURCE_DIR = /home/frydjak/4TM00_Assignment1_ws/tue4tm00_group11/group11_tue4tm00_assignment1
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/build/group11_tue4tm00_assignment1
+CMAKE_BINARY_DIR = /home/frydjak/4TM00_Assignment1_ws/tue4tm00_group11/build/group11_tue4tm00_assignment1
 
 # Utility rule file for uninstall.
 
@@ -78,6 +78,6 @@ CMakeFiles/uninstall.dir/clean:
 .PHONY : CMakeFiles/uninstall.dir/clean
 
 CMakeFiles/uninstall.dir/depend:
-	cd /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/build/group11_tue4tm00_assignment1 && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/group11_tue4tm00_assignment1 /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/group11_tue4tm00_assignment1 /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/build/group11_tue4tm00_assignment1 /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/build/group11_tue4tm00_assignment1 /home/donaku/group11_tue4tm00_ws/src/tue4tm00_group11/build/group11_tue4tm00_assignment1/CMakeFiles/uninstall.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/frydjak/4TM00_Assignment1_ws/tue4tm00_group11/build/group11_tue4tm00_assignment1 && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/frydjak/4TM00_Assignment1_ws/tue4tm00_group11/group11_tue4tm00_assignment1 /home/frydjak/4TM00_Assignment1_ws/tue4tm00_group11/group11_tue4tm00_assignment1 /home/frydjak/4TM00_Assignment1_ws/tue4tm00_group11/build/group11_tue4tm00_assignment1 /home/frydjak/4TM00_Assignment1_ws/tue4tm00_group11/build/group11_tue4tm00_assignment1 /home/frydjak/4TM00_Assignment1_ws/tue4tm00_group11/build/group11_tue4tm00_assignment1/CMakeFiles/uninstall.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/uninstall.dir/depend
 
