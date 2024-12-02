@@ -106,7 +106,7 @@ class SafeReactiveNavigation(Node):
         dist_to_goal = np.hypot(x_g - x_r, y_g - y_r)
 
         # If close to the goal, stop
-        if dist_to_goal < 0.1:
+        if dist_to_goal < 0.4:
             self.cmd_vel.linear.x = 0.0
             self.cmd_vel.angular.z = 0.0
             self.cmd_vel_pub.publish(self.cmd_vel)
