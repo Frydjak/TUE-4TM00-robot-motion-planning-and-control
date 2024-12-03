@@ -29,18 +29,23 @@ cd ~/tue4tm00_group11_ws
 colcon build --symlink-install
 ```
 
-- Source the install folder.
+- Source the core_tue4tm00_humble install folder.
 ```
 source ~/tue4tm00_ws/install/local_setup.bash
 ```
 
+ Source the tue4tm00_group11 install folder.
+```
+source ~/tue4tm00_group11_ws/install/local_setup.bash
+```
+
 - Start a demo launch file
 ```
-ros2 launch 
+ros2 launch demo_safe_twist_teleop_2D.launch.py
 ```
 or
 ```
-ros2 launch 
+ros2 launch demo_safe_reactive_navigation.launch.py
 ```
 
 
