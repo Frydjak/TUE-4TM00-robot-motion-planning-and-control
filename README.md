@@ -14,7 +14,7 @@ colcon build --symlink-install
 - Clone this git repository. 
 ```
 cd ~/tue4tm00_group11_ws/src
-git@gitlab.tue.nl:core_robotics/courses/tue4tm00/tue4tm00_groups_2024/tue4tm00_group11.git
+git clone git@gitlab.tue.nl:core_robotics/courses/tue4tm00/tue4tm00_groups_2024/tue4tm00_group11.git
 ```
 - Install ROS dependencies using `rosdep`.
 ```
