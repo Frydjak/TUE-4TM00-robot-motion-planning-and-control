@@ -135,7 +135,7 @@ class SafeTwistTeleop2D(Node):
 
     def timer_callback(self):
         """
-        Callback function for peridic timer updates
+        Callback function for periodic timer updates
         """
         # Parameters for scaling adjustments
         k_v = self.k_v
