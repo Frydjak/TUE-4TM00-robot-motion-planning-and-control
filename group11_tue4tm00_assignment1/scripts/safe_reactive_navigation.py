@@ -27,7 +27,13 @@ class SafeReactiveNavigation(Node):
         self.eta = 0.25               # Repulsive force scaling factor
         self.d0 = 2.0                 # Obstacle influence distance (meters)
         self.max_linear_speed = 0.5   # Maximum linear speed
-        self.max_angular_speed = 1.0  # Maximum angular speed
+        self.max_angular_speed = 1.5  # Maximum angular speed
+
+        self.declare_parameter('k_v', 1)
+        self.declare_parameter('k_omega', 2)
+
+        self.k_v = self.get_parameter('k_v').value
+        self.k_omega = self.get_parameter('k_omega').value
 
         # Initialize closest obstacle data
         self.closest_obstacle = None
@@ -96,6 +102,10 @@ class SafeReactiveNavigation(Node):
         """
         Callback function for periodic timer updates
         """
+        # Parameters for scaling adjustments
+        k_v = self.k_v
+        k_omega = self.k_omega
+
         x_r = self.pose_x
         y_r = self.pose_y
         theta_r = self.pose_a
@@ -148,8 +158,8 @@ class SafeReactiveNavigation(Node):
 
         # Compute linear and angular velocities
         v = np.hypot(force_total_x, force_total_y)
-        max_v = self.max_linear_speed
-        max_w = self.max_angular_speed
+        max_v = k_v*self.max_linear_speed
+        max_w = k_omega*self.max_angular_speed
 
         # Scale linear velocity based on the angle difference
         cmd_v = v * np.cos(delta_theta)
