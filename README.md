@@ -41,11 +41,11 @@ source ~/tue4tm00_group11_ws/install/local_setup.bash
 
 - Start a demo launch file
 ```
-ros2 group11_tue4tm00_assignment1 launch demo_safe_twist_teleop_2D.launch.py
+ros2 launch group11_tue4tm00_assignment1 demo_safe_twist_teleop_2D.launch.py
 ```
 or
 ```
-ros2 group11_tue4tm00_assignment1 launch demo_safe_reactive_navigation.launch.py
+ros2 launch group11_tue4tm00_assignment1 demo_safe_reactive_navigation.launch.py
 ```
 
 
