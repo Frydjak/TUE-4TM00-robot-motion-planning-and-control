@@ -24,7 +24,7 @@ class SafeReactiveNavigation(Node):
 
         # Parameters
         self.kappa = 1.0              # Attractive force gain
-        self.eta = 0.25               # Repulsive force scaling factor
+        self.eta = 0.2                # Repulsive force scaling factor
         self.d0 = 2.0                 # Obstacle influence distance (meters)
         self.max_linear_speed = 0.5   # Maximum linear speed
         self.max_angular_speed = 1.5  # Maximum angular speed

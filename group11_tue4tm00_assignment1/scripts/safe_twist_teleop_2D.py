@@ -49,8 +49,8 @@ class SafeTwistTeleop2D(Node):
 
         
         # Existing parameter declarations
-        self.declare_parameter('d0', 5.0)  # Influence distance (meters)
-        self.declare_parameter('eta', 0.25)  # Scaling factor for repulsive force
+        self.declare_parameter('d0', 1.0)  # Influence distance (meters)
+        self.declare_parameter('eta', 0.2)  # Scaling factor for repulsive force
         self.declare_parameter('max_linear_velocity', 0.5)  # Max linear speed
         self.declare_parameter('max_angular_velocity', 1.5)  # Max angular speed
         
