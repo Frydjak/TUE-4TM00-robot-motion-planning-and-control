@@ -14,9 +14,12 @@ import math
 import scipy.ndimage
 
 def distance_transform(binary_occupancy_matrix):
-    # binary_occupancy_matrix: True=obstacle, False=free
+    """ 
+    Compute the distance from each cell in the occupancy grid to the nearest obstacle
+    """
+    # binary_occupancy_matrix: True = obstacle, False = unoccupied
     # distance_transform_edt computes distance to the nearest zero value.
-    # We invert so that obstacles become 0 and free cells become 1.
+    # We invert so that obstacles become 0 and unoccupied cells become 1.
     distance_matrix = scipy.ndimage.distance_transform_edt(1 - binary_occupancy_matrix)
     return distance_matrix
 
@@ -27,7 +30,7 @@ class NavigationCostmap(Node):
                          allow_undeclared_parameters=True, 
                          automatically_declare_parameters_from_overrides=True)
         
-        # Retrieve parameters (provided via .YAML config file)
+        # Retrieve parameters (provided via safe_navigation_costmap.yaml config file)
         # Parameters for the repulsive costmap
         self.rate = self.get_parameter('rate').value
         self.min_cost = self.get_parameter('min_cost').value if self.has_parameter('min_cost') else 1.0
@@ -88,10 +91,10 @@ class NavigationCostmap(Node):
         if self.map_msg is None:
             return
 
+        # convert ROS Occupancy Grid to NumPy array, reszhape it into matrix of maps dimensions
         occgrid_msg = self.map_msg
         occupancy_matrix = np.array(occgrid_msg.data, dtype=np.int8).reshape(
-            occgrid_msg.info.height, occgrid_msg.info.width
-        )
+            occgrid_msg.info.height, occgrid_msg.info.width)
 
         # Convert to binary occupancy: True = obstacle, False = free
         binary_occupancy_matrix = occupancy_matrix >= int(100 * self.occupancy_threshold)
@@ -103,8 +106,8 @@ class NavigationCostmap(Node):
         metric_distance_matrix = distance_matrix * occgrid_msg.info.resolution
 
         # Subtract safety margin, ensuring no negative distances
-        metric_distance_matrix = metric_distance_matrix - self.safety_margin
-        metric_distance_matrix = np.maximum(metric_distance_matrix, 0.0)
+        # metric_distance_matrix = metric_distance_matrix - self.safety_margin
+        # metric_distance_matrix = np.maximum(metric_distance_matrix, 0.0)
 
         # Apply exponential decay to get cost
         # ensure that cost does not go below min_cost
