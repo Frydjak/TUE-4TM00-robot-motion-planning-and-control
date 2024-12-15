@@ -104,11 +104,7 @@ class NavigationCostmap(Node):
 
         # Convert to metric distance
         metric_distance_matrix = distance_matrix * occgrid_msg.info.resolution
-
-        # Subtract safety margin, ensuring no negative distances
-        # metric_distance_matrix = metric_distance_matrix - self.safety_margin
-        # metric_distance_matrix = np.maximum(metric_distance_matrix, 0.0)
-
+        
         # Apply exponential decay to get cost
         # ensure that cost does not go below min_cost
         cost_matrix = self.max_cost * np.exp(-self.decay_rate * metric_distance_matrix)
