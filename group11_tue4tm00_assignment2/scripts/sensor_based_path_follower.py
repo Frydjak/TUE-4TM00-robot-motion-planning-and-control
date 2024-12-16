@@ -156,16 +156,24 @@ class SafePathFollower(Node):
                     self.get_logger().info("Goal reached, stopping robot.")
                     return
             
-            # Compute the direction to the next waypoint
-            direction = current_waypoint - current_position
-            angle_to_waypoint = np.arctan2(direction[1], direction[0])
+                # Compute the direction to the next waypoint in the global frame
+            direction_global = current_waypoint - current_position
+
+            # Transform the direction to the robot's local frame
+            angle_robot = self.pose_a  # Robot's orientation (yaw) in radians
+            rotation_matrix = np.array([
+                [np.cos(angle_robot), np.sin(angle_robot)],
+                [-np.sin(angle_robot), np.cos(angle_robot)]
+            ])
+            direction_local = np.dot(rotation_matrix, direction_global)
+
+            # Log the distance in the global frame
+            self.get_logger().info(f"Distance to waypoint: dx={direction_global[0]}, dy={direction_global[1]}")
 
             # Create Twist message to command robot movement
-            self.get_logger().info(f"Distance to waypoint: {current_position[0] - current_waypoint[0]}, {current_position[1] - current_waypoint[1]}")
-
-            self.cmd_vel_msg.linear.x = -1 * (current_position[0] - current_waypoint[0])
-            self.cmd_vel_msg.linear.y = -1 * (current_position[1] - current_waypoint[1])
-
+            self.cmd_vel_msg.linear.x = direction_local[0] * 0.5  # Forward speed (scaled)
+            self.cmd_vel_msg.linear.y = direction_local[1] * 0.5  # Sideways speed (scaled)
+            
             # Send the command to move the robot
             self.cmd_vel_pub.publish(self.cmd_vel_msg)
 
