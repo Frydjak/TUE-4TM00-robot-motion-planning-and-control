@@ -1,3 +1,5 @@
+"""Python module with functions used in path planner functionality"""
+
 import numpy as np
 import networkx as nx
 import math
