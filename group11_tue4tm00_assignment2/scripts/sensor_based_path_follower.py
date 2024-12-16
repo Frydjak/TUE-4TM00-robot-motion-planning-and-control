@@ -128,16 +128,48 @@ class SafePathFollower(Node):
         """
         Callback function for peridic timer updates
         """
-        #TODO: If needed, use the timer callbacks in your design 
-        
-         # For example, publish the cmd_vel message to directly go to the goal while rotating around itself
-        ctrl_gain = 0.1
-        const_ang_vel = 1.0
-        self.cmd_vel_msg.linear.x = np.dot([np.cos(self.pose_a), np.sin(self.pose_a)], [-ctrl_gain*(self.pose_x-self.goal_x), -ctrl_gain*(self.pose_y-self.goal_y)])
-        self.cmd_vel_msg.linear.y = np.dot([-np.sin(self.pose_a), np.cos(self.pose_a)], [-ctrl_gain*(self.pose_x-self.goal_x), -ctrl_gain*(self.pose_y-self.goal_y)])
-        self.cmd_vel_msg.angular.z = const_ang_vel
-        self.cmd_vel_pub.publish(self.cmd_vel_msg)
+        #TODO: If needed, use the timer callbacks in your design
 
+        if self.path_msg.poses:
+            # Get the current position of the robot
+            current_position = np.array([self.pose_x, self.pose_y])
+
+            # Get the first waypoint (if any)
+            current_waypoint = np.array([self.path_msg.poses[0].pose.position.x, 
+                                        self.path_msg.poses[0].pose.position.y])
+
+            # Calculate the distance to the current waypoint
+            distance_to_waypoint = np.linalg.norm(current_position - current_waypoint)
+
+            # Set a threshold for reaching the waypoint (e.g., 0.1 meters)
+            waypoint_threshold = 0.1
+
+            if distance_to_waypoint < waypoint_threshold:
+                # If we reached the current waypoint, remove it from the path
+                self.path_msg.poses.pop(0)  # Remove the first waypoint
+                
+                # If no more waypoints are left, stop the robot (reach goal)
+                if len(self.path_msg.poses) == 0:
+                    self.cmd_vel_msg.linear.x = 0.0
+                    self.cmd_vel_msg.angular.z = 0.0
+                    self.cmd_vel_pub.publish(self.cmd_vel_msg)
+                    self.get_logger().info("Goal reached, stopping robot.")
+                    return
+            
+            # Compute the direction to the next waypoint
+            direction = current_waypoint - current_position
+            angle_to_waypoint = np.arctan2(direction[1], direction[0])
+
+            # Create Twist message to command robot movement
+            self.cmd_vel_msg.linear.x = 0.1  # Set linear speed (you can adjust this)
+            self.cmd_vel_msg.angular.z = 0.1 * (angle_to_waypoint - self.pose_a)  # Set angular speed
+
+            # Send the command to move the robot
+            self.cmd_vel_pub.publish(self.cmd_vel_msg)
+
+            self.get_logger().info(f"Moving towards waypoint {current_waypoint}")
+        else:
+            self.get_logger().info("No path received yet.")
 
 def main(args=None):
     rclpy.init(args=args)
