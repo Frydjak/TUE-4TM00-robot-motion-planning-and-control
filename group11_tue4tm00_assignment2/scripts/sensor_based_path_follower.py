@@ -77,6 +77,9 @@ class SafePathFollower(Node):
         # If need in your design, crease a timer for periodic updates
         self.create_timer(1.0 / self.rate, self.timer_callback)
 
+        self.velocity_Kp = self.get_parameter('velocity_Kp').value
+        self.waypoint_threshold = self.get_parameter('waypoint_threshold').value
+
     def pose_callback(self, msg):
         """
         Callback function for the pose topic, handling messages of type geometry_msgs.msg.PoseStamped
@@ -142,7 +145,8 @@ class SafePathFollower(Node):
             distance_to_waypoint = np.linalg.norm(current_position - current_waypoint)
 
             # Set a threshold for reaching the waypoint (e.g., 0.1 meters)
-            waypoint_threshold = 0.3
+            waypoint_threshold = self.waypoint_threshold
+            velocity_Kp = self.velocity_Kp
 
             if distance_to_waypoint < waypoint_threshold:
                 # If we reached the current waypoint, remove it from the path
@@ -151,6 +155,7 @@ class SafePathFollower(Node):
                 # If no more waypoints are left, stop the robot (reach goal)
                 if len(self.path_msg.poses) == 0:
                     self.cmd_vel_msg.linear.x = 0.0
+                    self.cmd_vel_msg.linear.y = 0.0
                     self.cmd_vel_msg.angular.z = 0.0
                     self.cmd_vel_pub.publish(self.cmd_vel_msg)
                     self.get_logger().info("Goal reached, stopping robot.")
@@ -171,9 +176,9 @@ class SafePathFollower(Node):
             self.get_logger().info(f"Distance to waypoint: dx={direction_global[0]}, dy={direction_global[1]}")
 
             # Create Twist message to command robot movement
-            self.cmd_vel_msg.linear.x = direction_local[0] * 0.5  # Forward speed (scaled)
-            self.cmd_vel_msg.linear.y = direction_local[1] * 0.5  # Sideways speed (scaled)
-            
+            self.cmd_vel_msg.linear.x = direction_local[0] * velocity_Kp  # Forward speed (scaled)
+            self.cmd_vel_msg.linear.y = direction_local[1] * velocity_Kp  # Sideways speed (scaled)
+
             # Send the command to move the robot
             self.cmd_vel_pub.publish(self.cmd_vel_msg)
 
