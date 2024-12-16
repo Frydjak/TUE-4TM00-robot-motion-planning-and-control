@@ -3,7 +3,7 @@
         use_sim_time: False
         rate: 25
         max_cost: 100
-        min_move_threshold: 0.05
+        min_move_threshold: 0.5
         
         
 

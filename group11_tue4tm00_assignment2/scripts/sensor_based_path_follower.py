@@ -142,7 +142,7 @@ class SafePathFollower(Node):
             distance_to_waypoint = np.linalg.norm(current_position - current_waypoint)
 
             # Set a threshold for reaching the waypoint (e.g., 0.1 meters)
-            waypoint_threshold = 0.1
+            waypoint_threshold = 0.3
 
             if distance_to_waypoint < waypoint_threshold:
                 # If we reached the current waypoint, remove it from the path
@@ -161,8 +161,10 @@ class SafePathFollower(Node):
             angle_to_waypoint = np.arctan2(direction[1], direction[0])
 
             # Create Twist message to command robot movement
-            self.cmd_vel_msg.linear.x = 0.1  # Set linear speed (you can adjust this)
-            self.cmd_vel_msg.angular.z = 0.1 * (angle_to_waypoint - self.pose_a)  # Set angular speed
+            self.get_logger().info(f"Distance to waypoint: {current_position[0] - current_waypoint[0]}, {current_position[1] - current_waypoint[1]}")
+
+            self.cmd_vel_msg.linear.x = -1 * (current_position[0] - current_waypoint[0])
+            self.cmd_vel_msg.linear.y = -1 * (current_position[1] - current_waypoint[1])
 
             # Send the command to move the robot
             self.cmd_vel_pub.publish(self.cmd_vel_msg)
