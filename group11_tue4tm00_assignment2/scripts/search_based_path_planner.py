@@ -34,7 +34,7 @@ class CombinedSearchBasedPathPlanner(Node):
         self.goal_y = 0.0
 
         # Maximum cost threshold for traversable cells
-        self.max_cost = self.get_parameter('max_cost').value
+        self.max_cost = self.get_parameter('max_cost').value  # e.g., 100
 
         # Movement threshold before re-planning (meters)
         self.min_move_threshold = self.get_parameter('min_move_threshold').value
@@ -96,6 +96,7 @@ class CombinedSearchBasedPathPlanner(Node):
         self.map_msg = None
         self.costmap_msg = None
         self.costmap_initialized = False  # Flag to track first costmap availability
+        self.goal_initialized = False
 
         # TF buffer/listener (if needed for TF transforms)
         self.tf_buffer = tf2_ros.Buffer()
@@ -121,7 +122,7 @@ class CombinedSearchBasedPathPlanner(Node):
 
         # Recompute the path whenever the pose updates
         # If this is the first pose callback, always plan once.
-        if not self.last_initialized and self.costmap_initialized:
+        if not self.last_initialized and self.costmap_initialized and self.goal_initialized:
             self.last_x = self.pose_x
             self.last_y = self.pose_y
             self.last_initialized = True
@@ -144,6 +145,9 @@ class CombinedSearchBasedPathPlanner(Node):
         self.goal_msg = msg
         self.goal_x = msg.pose.position.x
         self.goal_y = msg.pose.position.y
+        if not self.goal_initialized:
+            self.goal_initialized = True
+            self.get_logger().info("Goal received.")
     
     def scan_callback(self, msg):
         """Callback for the 'scan' topic."""
@@ -159,15 +163,15 @@ class CombinedSearchBasedPathPlanner(Node):
         # Trigger initial path computation if costmap becomes available
         if not self.costmap_initialized:
             self.costmap_initialized = True
-            self.get_logger().info("First costmap received. Computing initial path.")
-            self.compute_and_publish_path()
+            self.get_logger().info("First costmap received.")
 
     def timer_callback(self):
         """
         Called at 'self.rate' Hz. 
-        Computes and publishes the minimal-cost path using the costmap.
+        If additional checks are needed periodically, add them here.
         """
-        
+        # This callback is currently empty because path re-planning
+        # is triggered on pose update or newly received costmap/goal.
 
     def compute_and_publish_path(self):
         """Computes and publishes the minimal-cost path using the costmap."""
@@ -194,7 +198,7 @@ class CombinedSearchBasedPathPlanner(Node):
         )
         costmap_matrix = np.float64(costmap_matrix)
         
-        # Cells >= max_cost are obstacles (-1)
+        # Any cell >= max_cost is considered obstacle
         costmap_matrix[costmap_matrix >= self.max_cost] = -1
 
         # Convert start & goal from world to grid indices
@@ -209,7 +213,7 @@ class CombinedSearchBasedPathPlanner(Node):
             resolution=costmap_resolution
         )[0]
 
-        # Compute the path in grid coordinates (uses A* algorithm)
+        # Compute the path in grid coordinates (e.g. A* or BFS)
         path_grid = group11_path_planner.shortest_path_networkx(
             costmap_matrix,
             start_cell,
@@ -259,7 +263,6 @@ class CombinedSearchBasedPathPlanner(Node):
         Simple helper to check if pose, goal, and costmap are initialized.
         You can add more robust checks here if needed.
         """
-        # For a valid path, we need the costmap filled, and valid pose & goal
         if self.costmap_msg is None:
             self.get_logger().warn("No costmap received yet.")
             return False
