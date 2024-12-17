@@ -62,7 +62,7 @@ or
 ```
 ros2 launch group11_tue4tm00_assignment2 demo_safe_navigation_costmap.launch.py
 ```
-For smooth path following performance it is recommended to generate path only once, at the beginning of simulation. This can easily be done by modifying min_move_threshold value inside search_based_path_planner.yaml file to large value, for example: 
+For smooth path following performance it is recommended to generate path only once, at the beginning of simulation. This can easily be done by modifying `min_move_threshold` value inside `search_based_path_planner.yaml` file to large value, for example: 
 ```
 min_move_threshold: 100
 ```
