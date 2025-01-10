@@ -40,6 +40,8 @@ source ~/tue4tm00_group11_ws/install/local_setup.bash
 ```
 
 - Start a demo launch file.
+
+for assignment 1:
 ```
 ros2 launch group11_tue4tm00_assignment1 demo_safe_twist_teleop_2D.launch.py
 ```
@@ -48,4 +50,20 @@ or
 ros2 launch group11_tue4tm00_assignment1 demo_safe_reactive_navigation.launch.py
 ```
 
-
+for assignment 2:
+```
+ros2 launch group11_tue4tm00_assignment2 demo_safe_navigation_costmap.launch.py
+```
+or
+```
+ros2 launch group11_tue4tm00_assignment2 demo_safe_navigation_costmap.launch.py
+```
+or
+```
+ros2 launch group11_tue4tm00_assignment2 demo_safe_navigation_costmap.launch.py
+```
+For smooth path following performance it is recommended to generate path only once, at the beginning of simulation. This can easily be done by modifying `min_move_threshold` value inside `search_based_path_planner.yaml` file to large value, for example: 
+```
+min_move_threshold: 100
+```
+This will ensure no path updates happen during simulation.
