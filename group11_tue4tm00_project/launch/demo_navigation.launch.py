@@ -21,7 +21,7 @@ def generate_launch_description():
         actions=[
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(
-                    os.path.join(get_package_share_directory('group11_tue4tm00_turtlebot3_simulate'), 'launch', 'turtlebot3_map_gazebo_core_large_office.launch.py')
+                    os.path.join(get_package_share_directory('core_tue4tm00_turtlebot3_simulate'), 'launch', 'turtlebot3_map_gazebo_core_large_office.launch.py')
                 )
             )
         ],
