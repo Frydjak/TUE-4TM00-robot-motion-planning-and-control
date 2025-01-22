@@ -1,147 +1,236 @@
 #!/usr/bin/env python3
 
+import math
+import numpy as np
 import rclpy
 from rclpy.node import Node
-from rclpy.parameter import Parameter
 from rclpy.qos import QoSProfile, DurabilityPolicy
-from geometry_msgs.msg import PoseStamped
-from geometry_msgs.msg import Twist
+from geometry_msgs.msg import PoseStamped, Twist
 from sensor_msgs.msg import LaserScan
 from nav_msgs.msg import OccupancyGrid, Path
-from geometry_msgs.msg import TransformStamped
-
-import rclpy.time
 from tf_transformations import euler_from_quaternion
 import tf2_ros
-
-import numpy as np
-import time 
 
 class SafePathFollower(Node):
     
     def __init__(self):
-        super().__init__('safe_path_follower', allow_undeclared_parameters=True, 
+        super().__init__('safe_path_follower',
+                         allow_undeclared_parameters=True, 
                          automatically_declare_parameters_from_overrides=True)
         
-        # If needed in your design, define your node parameters
-        self.pose_x = 0.0 # robot x-position
-        self.pose_y = 0.0 # robot y-position
-        self.pose_a = 0.0 # robot yaw angle
-        self.goal_x = 0.0 # goal x-position
-        self.goal_y = 0.0 # goal y-position
-        
-        # If needed in your design, get a node parameter for update rate
-        self.rate = 10.0 
-        rate = self.get_parameter('rate').value
-        self.rate = rate if rate is not None else self.rate 
-        
-        # If needed in your design, create a subscriber to the pose topic
-        self.pose_subscriber = self.create_subscription(PoseStamped, 'pose', self.pose_callback, 1)
-        self.pose_msg = PoseStamped()
+        # Retrieve parameters from configuration or defaults
+        self.rate = self.get_parameter('rate').value
+        self.look_ahead_distance = self.get_parameter('look_ahead_distance').value
+        self.final_goal_tolerance = self.get_parameter('final_goal_tolerance').value
+        self.corridor_radius = self.get_parameter('corridor_radius').value
+        self.block_cost_threshold = self.get_parameter('block_cost_threshold').value
+        self.linear_speed = self.get_parameter('linear_speed').value
+        self.angular_speed_gain = self.get_parameter('angular_speed_gain').value
+        self.max_angular_speed = self.get_parameter('max_angular_speed').value
 
-        # If needed in your design, create a subscriber to the goal topic
-        self.goal_subscriber = self.create_subscription(PoseStamped, 'goal', self.goal_callback, 1)
-        self.goal_msg = PoseStamped()
+        # Robot state initialization
+        self.pose_x = 0.0
+        self.pose_y = 0.0
+        self.pose_a = 0.0
 
-        # If needed in your design, create a subscriber to the scan topic
-        self.scan_subscriber = self.create_subscription(LaserScan, 'scan', self.scan_callback, 1)
-        self.scan_msg = LaserScan()
+        # Path and goal tracking
+        self.current_path = []
+        self.goal_reached = False
 
-        # If needed in your design, create a subscriber to the map topic with the QoS profile of transient_local durability
-        map_qos_profile = QoSProfile(depth=1)
-        map_qos_profile.durability = DurabilityPolicy.TRANSIENT_LOCAL
-        self.map_subscriber = self.create_subscription(OccupancyGrid, 'map', self.map_callback, qos_profile=map_qos_profile)
-        self.map_msg = OccupancyGrid()
+        # Costmap properties
+        self.costmap_matrix = None
+        self.costmap_origin = (0.0, 0.0)
+        self.costmap_resolution = 0.05
+        self.costmap_width = 0
+        self.costmap_height = 0
 
-        # If needed in your design, create a subscriber to the costmap topic of message type nav_msgs.msg.OccupancyGrid
-        costmap_qos_profile = QoSProfile(depth=1)
-        costmap_qos_profile.durability = DurabilityPolicy.TRANSIENT_LOCAL
-        self.costmap_subscriber = self.create_subscription(OccupancyGrid, 'costmap', self.costmap_callback, qos_profile=costmap_qos_profile)
-        self.costmap_msg = OccupancyGrid()
+        # Set up subscribers
+        self.pose_subscriber = self.create_subscription(
+            PoseStamped, 'odom_pose', self.pose_callback, 1
+        )
+        costmap_qos_profile = QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL)
+        self.costmap_subscriber = self.create_subscription(
+            OccupancyGrid, 'costmap', self.costmap_callback, qos_profile=costmap_qos_profile
+        )
+        path_qos_profile = QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL)
+        self.path_subscriber = self.create_subscription(
+            Path, 'path', self.path_callback, qos_profile=path_qos_profile
+        )
 
-        # If needed in your design, create a subscriber to the path topic of message type nav_msgs.msg.Path
-        path_qos_profile = QoSProfile(depth=1)
-        path_qos_profile.durability = DurabilityPolicy.TRANSIENT_LOCAL
-        self.path_subscriber = self.create_subscription(Path, 'path', self.path_callback, qos_profile=path_qos_profile)
-        self.path_msg = Path()
+        self.scan_subscriber = self.create_subscription(
+            LaserScan, 'scan', self.scan_callback, 1
+        )
 
-        # Create a publisher for the cmd_vel topic of message type geometry_msgs.msg.Twist
+        # Set up publisher for velocity commands
         self.cmd_vel_pub = self.create_publisher(Twist, 'cmd_vel', 1)
-        self.cmd_vel_msg = Twist()
 
-        # If needed in your design, create a buffer and listener to the /tf topic 
-        # to get transformations via self.tf_buffer.lookup_transform
+        # Set up TF listener
         self.tf_buffer = tf2_ros.Buffer()
         self.tf_listener = tf2_ros.TransformListener(self.tf_buffer, self)
 
-        # If need in your design, crease a timer for periodic updates
+        # Timer for periodic control updates
         self.create_timer(1.0 / self.rate, self.timer_callback)
 
+    # -----------------------------
+    # Callbacks for incoming messages
+    # -----------------------------
     def pose_callback(self, msg):
-        """
-        Callback function for the pose topic, handling messages of type geometry_msgs.msg.PoseStamped
-        """
-        #TODO: If needed, use the pose topic messages in your design
-        self.pose_msg = msg
+        # Update robot's position and orientation from pose message
         self.pose_x = msg.pose.position.x
         self.pose_y = msg.pose.position.y
-        self.pose_a = euler_from_quaternion([msg.pose.orientation.x, msg.pose.orientation.y, msg.pose.orientation.z, msg.pose.orientation.w])[2]
-
-    def goal_callback(self, msg):
-        """
-        Callback function for the goal topic, handling messages of type geometry_msgs.msg.PoseStamped
-        """
-        #TODO: If needed, use the pose topic messages in your design
-        self.goal_msg = msg
-        self.goal_x = msg.pose.position.x
-        self.goal_y = msg.pose.position.y
-    
-    def scan_callback(self, msg):
-        """
-        Callback function for the scan topic, handling messages of type sensor_msgs.msg.LaserScan
-        """
-        #TODO: If needed, use the scan topic messages in your design 
-        self.scan_msg = msg
-
-    def map_callback(self, msg):
-        """
-        Callback function for the map topic, handling messages of type nav_msgs.msg.OccupancyGrid
-        """
-        #TODO: If needed, use the map topic messages in your design
-        self.map_msg = msg
+        quat = msg.pose.orientation
+        _, _, yaw = euler_from_quaternion([quat.x, quat.y, quat.z, quat.w])
+        self.pose_a = yaw
 
     def costmap_callback(self, msg):
-        """
-        Callback function for the costmap topic, handling messages of type nav_msgs.msg.OccupancyGrid
-        """
-        #TODO: If needed, use the costmap topic messages in your design
-        self.costmap_msg = msg  
+        # Update costmap information from occupancy grid
+        self.costmap_width = msg.info.width
+        self.costmap_height = msg.info.height
+        self.costmap_resolution = msg.info.resolution
+        self.costmap_origin = (msg.info.origin.position.x, msg.info.origin.position.y)
+        raw_data = np.array(msg.data, dtype=np.float64)
+        self.costmap_matrix = raw_data.reshape(msg.info.height, msg.info.width)
 
     def path_callback(self, msg):
-        """
-        Callback function for the path topic, handling messages of type nav_msgs.msg.Path
-        """
-        #TODO: If needed, use the path topic messages in your design
-        self.path_msg = msg            
+        # Convert received path to list of waypoints
+        if not msg.poses:
+            self.get_logger().warn("Empty path received. Stopping robot.")
+            self.current_path = []
+            self.goal_reached = False
+            return
+        self.current_path = [(ps.pose.position.x, ps.pose.position.y) for ps in msg.poses]
+        self.goal_reached = False
+        self.get_logger().info(f"Got path with {len(self.current_path)} points.")
 
+    def scan_callback(self, msg):
+        # Handle laser scan data if needed (currently unused)
+        pass
+
+    # -----------------------------
+    # Timer-based control loop
+    # -----------------------------
     def timer_callback(self):
-        """
-        Callback function for peridic timer updates
-        """
-        #TODO: If needed, use the timer callbacks in your design 
-        
-         # For example, publish the zero cmd_vel message
-        zero_cmd_vel_msg = Twist()
-        self.cmd_vel_pub.publish(zero_cmd_vel_msg)
+        # Stop robot if no path or goal already reached
+        if not self.current_path or self.goal_reached:
+            self.stop_robot()
+            return
+
+        # Stop robot if costmap is unavailable
+        if self.costmap_matrix is None:
+            self.get_logger().warn("No costmap yet, stopping.")
+            self.stop_robot()
+            return
+
+        # Check distance to goal
+        gx, gy = self.current_path[-1]
+        dist_to_goal = math.hypot(gx - self.pose_x, gy - self.pose_y)
+        if dist_to_goal < self.final_goal_tolerance:
+            self.stop_robot()
+            self.goal_reached = True
+            self.get_logger().info("Current goal reached!")
+            return
+
+        # Determine look-ahead point
+        look_x, look_y = self.find_lookahead_point()
+
+        # Check if path is blocked in costmap
+        if self.is_blocked_in_costmap(look_x, look_y):
+            self.get_logger().warn("Look-ahead corridor blocked. Stopping.")
+            self.stop_robot()
+            return
+
+        # Publish velocity command
+        cmd_vel = self.compute_cmd_vel(look_x, look_y)
+        self.cmd_vel_pub.publish(cmd_vel)
+
+    # -----------------------------
+    # Helper methods
+    # -----------------------------
+    def find_lookahead_point(self):
+        # Locate the next waypoint on the path to follow
+        gx, gy = self.current_path[-1]
+        dist_to_goal = math.hypot(gx - self.pose_x, gy - self.pose_y)
+        if dist_to_goal < self.look_ahead_distance:
+            return gx, gy
+
+        closest_idx = 0
+        min_dist_sq = float('inf')
+        for i, (px, py) in enumerate(self.current_path):
+            d2 = (px - self.pose_x)**2 + (py - self.pose_y)**2
+            if d2 < min_dist_sq:
+                min_dist_sq = d2
+                closest_idx = i
+
+        for j in range(closest_idx, len(self.current_path)):
+            px, py = self.current_path[j]
+            d = math.hypot(px - self.pose_x, py - self.pose_y)
+            if d >= self.look_ahead_distance:
+                return px, py
+
+        return self.current_path[-1]
+
+    def is_blocked_in_costmap(self, wx, wy):
+        # Check if cost in the area around a point exceeds the threshold
+        row_col = self.world_to_grid(wx, wy)
+        if row_col is None:
+            return True
+        row, col = row_col
+        r_radius = int(self.corridor_radius / self.costmap_resolution)
+
+        row_min = max(0, row - r_radius)
+        row_max = min(self.costmap_height - 1, row + r_radius)
+        col_min = max(0, col - r_radius)
+        col_max = min(self.costmap_width - 1, col + r_radius)
+
+        for rr in range(row_min, row_max + 1):
+            for cc in range(col_min, col_max + 1):
+                if self.costmap_matrix[rr, cc] >= self.block_cost_threshold:
+                    return True
+        return False
+
+    def world_to_grid(self, x, y):
+        # Convert world coordinates to grid indices
+        col = int((x - self.costmap_origin[0]) / self.costmap_resolution)
+        row = int((y - self.costmap_origin[1]) / self.costmap_resolution)
+        if row < 0 or row >= self.costmap_height or col < 0 or col >= self.costmap_width:
+            return None
+        return (row, col)
+
+    def compute_cmd_vel(self, tx, ty):
+        # Compute linear and angular velocities for navigation
+        heading = math.atan2(ty - self.pose_y, tx - self.pose_x)
+        yaw_error = self.normalize_angle(heading - self.pose_a)
+
+        angular_z = self.angular_speed_gain * yaw_error
+        angular_z = max(min(angular_z, self.max_angular_speed), -self.max_angular_speed)
+
+        speed_factor = max(0.0, 1.0 - abs(yaw_error))
+        linear_x = self.linear_speed * speed_factor
+
+        cmd_vel = Twist()
+        cmd_vel.linear.x = linear_x
+        cmd_vel.angular.z = angular_z
+        return cmd_vel
+
+    def stop_robot(self):
+        # Publish a zero velocity command to stop the robot
+        self.cmd_vel_pub.publish(Twist())
+
+    def normalize_angle(self, angle):
+        # Normalize angle to the range [-pi, pi]
+        return (angle + math.pi) % (2 * math.pi) - math.pi
 
 
 def main(args=None):
     rclpy.init(args=args)
-    safe_path_follower_node = SafePathFollower()
-    try: 
-        rclpy.spin(safe_path_follower_node)
+    node = SafePathFollower()
+    try:
+        rclpy.spin(node)
     except KeyboardInterrupt:
-        pass 
+        pass
+    finally:
+        node.destroy_node()
+        rclpy.shutdown()
 
 
 if __name__ == '__main__':

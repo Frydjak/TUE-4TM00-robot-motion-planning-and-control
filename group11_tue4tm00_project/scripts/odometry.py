@@ -19,29 +19,21 @@ class Odometry(Node):
             allow_undeclared_parameters=True, 
             automatically_declare_parameters_from_overrides=True)
         
-        #
-        # Declare/obtain parameters
-        #
+        # Initialize parameters
         self.rate = self.get_parameter('rate').value
 
-        # These store our best estimate of the robot pose (x,y,theta).
-        # They are updated at 10 Hz by integrating cmd_vel, 
-        # and reset whenever a new ground-truth pose_in arrives.
+        # Robot pose (x, y, yaw in radians)
         self.pose_x = 0.0  
         self.pose_y = 0.0
-        self.pose_a = 0.0  # yaw in radians
+        self.pose_a = 0.0
 
-        # Keep the last time we integrated so we can compute dt
-        # Start it at the current node time.
+        # Time tracking for integration
         self.last_integration_time = self.get_clock().now()
 
-        # Keep track of the latest Twist message
-        self.cmd_vel_msg = Twist()  # default to zero velocity
+        # Store the latest cmd_vel message
+        self.cmd_vel_msg = Twist()
 
-        #
-        # Subscribers
-        #
-        # 1) Subscribe to the low-rate (0.3 Hz) pose_in
+        # Set up subscriptions
         pose_in_qos_profile = rclpy.qos.QoSProfile(
             reliability=rclpy.qos.ReliabilityPolicy.RELIABLE,
             durability=rclpy.qos.DurabilityPolicy.VOLATILE,
@@ -55,7 +47,6 @@ class Odometry(Node):
             qos_profile=pose_in_qos_profile
         )
 
-        # 2) Subscribe to cmd_vel (used for dead-reckoning)
         cmd_vel_qos_profile = rclpy.qos.QoSProfile(
             reliability=rclpy.qos.ReliabilityPolicy.RELIABLE,
             durability=rclpy.qos.DurabilityPolicy.VOLATILE,
@@ -69,7 +60,6 @@ class Odometry(Node):
             qos_profile=cmd_vel_qos_profile
         )
 
-        # 3) Subscribe to the scan topic (if needed for any advanced logic)
         scan_qos_profile = rclpy.qos.QoSProfile(
             reliability=rclpy.qos.ReliabilityPolicy.BEST_EFFORT,
             durability=rclpy.qos.DurabilityPolicy.VOLATILE,
@@ -82,9 +72,7 @@ class Odometry(Node):
             self.scan_callback,
             qos_profile=scan_qos_profile
         )
-        self.scan_msg = LaserScan()
 
-        # 4) Subscribe to the map topic (if you need map info)
         map_qos_profile = rclpy.qos.QoSProfile(
             reliability=rclpy.qos.ReliabilityPolicy.RELIABLE,
             durability=rclpy.qos.DurabilityPolicy.TRANSIENT_LOCAL,
@@ -97,12 +85,8 @@ class Odometry(Node):
             self.map_callback,
             qos_profile=map_qos_profile
         )
-        self.map_msg = OccupancyGrid()
 
-        #
-        # Publishers
-        #
-        # Publish the integrated pose at 10 Hz to 'pose_out'
+        # Publisher for integrated pose
         pose_out_qos_profile = rclpy.qos.QoSProfile(
             reliability=rclpy.qos.ReliabilityPolicy.RELIABLE,
             durability=rclpy.qos.DurabilityPolicy.VOLATILE,
@@ -115,115 +99,83 @@ class Odometry(Node):
             qos_profile=pose_out_qos_profile
         )
 
-        #
-        # Timer - run at self.rate (e.g., 10 Hz)
-        #
+        # Timer to update pose at the given rate
         self.timer = self.create_timer(1.0 / self.rate, self.timer_update)
 
     def pose_in_callback(self, msg):
         """
-        Callback for the low-rate ground-truth (or corrected) pose, e.g. at 0.3 Hz.
-        When a new message arrives, reset the integrated pose to these values.
+        Updates the robot's pose when a new ground-truth pose is received.
         """
-        # Extract x, y, yaw from the incoming PoseStamped
         x = msg.pose.position.x
         y = msg.pose.position.y
 
-        # Convert quaternion to euler angles
         quat = (
             msg.pose.orientation.x,
             msg.pose.orientation.y,
             msg.pose.orientation.z,
             msg.pose.orientation.w
         )
-        roll, pitch, yaw = euler_from_quaternion(quat)
+        _, _, yaw = euler_from_quaternion(quat)
 
-        # Override our integrated state with the "ground truth"
         self.pose_x = x
         self.pose_y = y
         self.pose_a = yaw
 
     def cmd_vel_callback(self, msg):
         """
-        Callback for cmd_vel. We store the latest Twist so we can integrate it at 10 Hz.
+        Stores the latest velocity command for integration.
         """
         self.cmd_vel_msg = msg
 
     def scan_callback(self, msg):
         """
-        Callback for the scan topic, if needed in your design.
+        Handles laser scan data if needed (not used in this implementation).
         """
         self.scan_msg = msg
 
     def map_callback(self, msg):
         """
-        Callback for the map topic, if needed in your design.
+        Handles map updates if needed (not used in this implementation).
         """
         self.map_msg = msg
 
     def timer_update(self):
         """
-        Called at self.rate (e.g. 10 Hz). We integrate the latest velocity commands
-        forward in time and publish an updated pose_out.
+        Periodically integrates velocity to update the robot's estimated pose.
         """
         current_time = self.get_clock().now()
         dt = (current_time - self.last_integration_time).nanoseconds * 1e-9
         self.last_integration_time = current_time
 
-        # If dt is extremely large or zero (e.g., on startup), skip integration
         if dt <= 0.0 or dt > 1.0:
             return
 
-        # Grab linear and angular velocities from the last cmd_vel
-        vx = self.cmd_vel_msg.linear.x      # forward velocity (m/s)
-        vy = self.cmd_vel_msg.linear.y      # (usually 0 for differential drive)
-        wz = self.cmd_vel_msg.angular.z     # yaw rate (rad/s)
-
-        #
-        # Simple differential-drive or unicycle integration
-        #
-        # If you assume cmd_vel is in the robot's local frame, 
-        # the forward velocity is along the robot's heading, 
-        # so you'd do:
-        #
-        #   self.pose_x += vx*dt*cos(self.pose_a) - vy*dt*sin(self.pose_a)
-        #   self.pose_y += vx*dt*sin(self.pose_a) + vy*dt*cos(self.pose_a)
-        #   self.pose_a += wz*dt
-        #
-        # If your robot or simulator uses a different convention, adapt accordingly.
+        vx = self.cmd_vel_msg.linear.x
+        vy = self.cmd_vel_msg.linear.y
+        wz = self.cmd_vel_msg.angular.z
 
         self.pose_x += vx * dt * math.cos(self.pose_a) - vy * dt * math.sin(self.pose_a)
         self.pose_y += vx * dt * math.sin(self.pose_a) + vy * dt * math.cos(self.pose_a)
         self.pose_a += wz * dt
 
-        # Normalize yaw to [-pi, pi] or [0, 2*pi] if desired
-        # for cleanliness in logs or for continuity
         self.pose_a = (self.pose_a + math.pi) % (2 * math.pi) - math.pi
 
-        # Now prepare the PoseStamped to publish
         pose_out_msg = PoseStamped()
         pose_out_msg.header.stamp = current_time.to_msg()
-        # Use a relevant frame, e.g. 'odom' or 'map'. Here we just say 'odom'
         pose_out_msg.header.frame_id = 'odom'
 
-        # Fill in the position
         pose_out_msg.pose.position.x = self.pose_x
         pose_out_msg.pose.position.y = self.pose_y
         pose_out_msg.pose.position.z = 0.0
 
-        # Convert yaw back to quaternion
         quat = quaternion_from_euler(0.0, 0.0, self.pose_a)
         pose_out_msg.pose.orientation.x = quat[0]
         pose_out_msg.pose.orientation.y = quat[1]
         pose_out_msg.pose.orientation.z = quat[2]
         pose_out_msg.pose.orientation.w = quat[3]
 
-        # Publish
         self.pose_out_publisher.publish(pose_out_msg)
 
-    #
-    # main()
-    #
 def main(args=None):
     rclpy.init(args=args)
     odometry_node = Odometry()
