@@ -12,7 +12,7 @@ def generate_launch_description():
 
     use_sim_time = DeclareLaunchArgument('use_sim_time', default_value='False')
     ld.add_action(use_sim_time)
-    namespace = DeclareLaunchArgument('namespace', default_value='myrobot') 
+    namespace = DeclareLaunchArgument('namespace', default_value='turtlebot') 
     ld.add_action(namespace)
     default_config = os.path.join(get_package_share_directory('group11_tue4tm00_project'), 'config', 'path_follower.yaml') 
     config = DeclareLaunchArgument('config', default_value=default_config)

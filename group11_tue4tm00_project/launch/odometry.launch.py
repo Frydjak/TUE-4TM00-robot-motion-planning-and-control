@@ -8,12 +8,12 @@ import os
 def generate_launch_description():
 
     use_sim_time = DeclareLaunchArgument('use_sim_time', default_value='false')
-    namespace = DeclareLaunchArgument('namespace', default_value='')
+    namespace = DeclareLaunchArgument('namespace', default_value='turtlebot')
     pose_in = DeclareLaunchArgument('pose_in', default_value='pose_in')
     cmd_vel = DeclareLaunchArgument('cmd_vel', default_value='cmd_vel')
     pose_out = DeclareLaunchArgument('pose_out', default_value='pose_out')
     
-    default_config = os.path.join(get_package_share_directory('core_odometry_tools'),'config', 'odometry.yaml')
+    default_config = os.path.join(get_package_share_directory('group11_tue4tm00_project'),'config', 'odometry.yaml')
     config = DeclareLaunchArgument('config', default_value=default_config, 
                                    description='config file for node parameters')
 

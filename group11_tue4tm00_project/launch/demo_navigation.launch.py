@@ -55,8 +55,14 @@ def generate_launch_description():
             'goal_topic': 'goal',
             'pose_topic': ['/mocap/', LaunchConfiguration('namespace'), '/pose'],
         },
+       
     )
-    ld.add_action(goal_publisher_launch)
+    #ld.add_action(goal_publisher_launch)
+    delayed_goal_publisher = TimerAction(
+        period=5.0,  # wait 5 seconds
+        actions=[goal_publisher_launch]
+    )
+    ld.add_action(delayed_goal_publisher)
 
     odometry_launch = GroupAction(
         actions=[

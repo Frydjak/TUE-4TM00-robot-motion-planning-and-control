@@ -1,4 +1,4 @@
-frame_id: "world"
+frame_id: "map"
 points:
 - [+5.0, +7.5, 0.0]
 - [-11.0, -7.0, 0.0]

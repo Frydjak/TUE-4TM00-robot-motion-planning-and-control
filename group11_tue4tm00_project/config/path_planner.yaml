@@ -2,7 +2,4 @@
     ros__parameters:
         use_sim_time: False
         rate: 1.0
-        
-
-    
-
+        max_cost: 100
