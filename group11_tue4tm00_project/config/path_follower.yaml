@@ -5,7 +5,7 @@
         look_ahead_distance: 0.75
         final_goal_tolerance: 0.025
         corridor_radius: 0.4
-        block_cost_threshold: 90     # If cost in corridor >= this threshold, treat as blocked
+        block_cost_threshold: 95     # If cost in corridor >= this threshold, treat as blocked
         linear_speed: 1.5
         angular_speed_gain: 0.5
         max_angular_speed: 2.5
