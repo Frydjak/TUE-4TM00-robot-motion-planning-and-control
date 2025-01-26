@@ -32,6 +32,7 @@ class Costmap(Node):
         self.rate = self.get_parameter('rate').value
         self.min_cost = self.get_parameter('min_cost').value
         self.max_cost = self.get_parameter('max_cost').value
+        self.occupancy_threshold = self.get_parameter('occupancy_threshold').value
         self.decay_rate = self.get_parameter('decay_rate').value
         self.clearance = self.get_parameter('clearance').value
 
@@ -98,14 +99,19 @@ class Costmap(Node):
         if self.map_msg is None:
             return
 
-        # Convert the occupancy grid to a binary matrix
         occgrid_msg = self.map_msg
+        occupancy_threshold = self.occupancy_threshold
+
+        # Convert the occupancy grid to a binary matrix
         occupancy_matrix = np.array(
             occgrid_msg.data, dtype=np.int8
         ).reshape(
             occgrid_msg.info.height, occgrid_msg.info.width
         )
-        binary_occupancy_matrix = occupancy_matrix >= 100
+
+        # probabilities in range [0,100], where 0 is unoccupied and 100 is occupied
+        # unknown is -1 
+        binary_occupancy_matrix = occupancy_matrix >= occupancy_threshold
 
         # Compute distance transform and adjust for clearance
         distance_matrix = distance_transform(binary_occupancy_matrix)
