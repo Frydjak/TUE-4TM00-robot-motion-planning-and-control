@@ -1,0 +1,9 @@
+/**:
+    ros__parameters:
+        use_sim_time: False
+        rate: 10.0
+        min_cost: 1.0 # Minimum cost in the range of [0, 100]
+        max_cost: 100.0 # Maximum (unsafe) cost in the range of [0, 100]
+        occupancy_threshold: 1 # Occupancy map occupied value threshold
+        decay_rate: 1.0 # Decay rate for repulsive cost
+        clearance: 0.2

@@ -1,7 +1,10 @@
 /**:
     ros__parameters:
         use_sim_time: False
-        rate: 1.0
+        rate: 25
+        max_cost: 100
+        min_move_threshold: 0.2
+        
         
 
     

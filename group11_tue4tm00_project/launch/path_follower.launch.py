@@ -12,9 +12,9 @@ def generate_launch_description():
 
     use_sim_time = DeclareLaunchArgument('use_sim_time', default_value='False')
     ld.add_action(use_sim_time)
-    namespace = DeclareLaunchArgument('namespace', default_value='myrobot') 
+    namespace = DeclareLaunchArgument('namespace', default_value='turtlebot') 
     ld.add_action(namespace)
-    default_config = os.path.join(get_package_share_directory('group11_tue4tm00_assignment2'), 'config', 'search_based_path_planner.yaml') 
+    default_config = os.path.join(get_package_share_directory('group11_tue4tm00_project'), 'config', 'path_follower.yaml') 
     config = DeclareLaunchArgument('config', default_value=default_config)
     ld.add_action(config)
     pose = DeclareLaunchArgument('pose', default_value='pose')
@@ -29,12 +29,13 @@ def generate_launch_description():
     ld.add_action(costmap)
     path = DeclareLaunchArgument('path', default_value='path')
     ld.add_action(path)
+    cmd_vel = DeclareLaunchArgument('cmd_vel', default_value='cmd_vel')
+    ld.add_action(cmd_vel)
 
-
-    path_planner_node = Node(
-        package='group11_tue4tm00_assignment2',
-        executable='search_based_path_planner.py',
-        name='path_planner',
+    path_follower_node = Node(
+        package='group11_tue4tm00_project',
+        executable='path_follower.py',
+        name='path_follower',
         namespace=LaunchConfiguration('namespace'),
         parameters=[
             LaunchConfiguration('config'),
@@ -51,10 +52,11 @@ def generate_launch_description():
             ('map', LaunchConfiguration('map')),
             ('costmap', LaunchConfiguration('costmap')),
             ('path', LaunchConfiguration('path')),
+            ('cmd_vel', LaunchConfiguration('cmd_vel')),
         ],
         output='screen',
         emulate_tty=True,
     )
-    ld.add_action(path_planner_node)
+    ld.add_action(path_follower_node)
 
     return ld

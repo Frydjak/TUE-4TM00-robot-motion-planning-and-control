@@ -15,7 +15,7 @@ def generate_launch_description():
     namespace = DeclareLaunchArgument('namespace', default_value='robocyl', description='RoboCyl name')
     ld.add_action(namespace)  
     
-    rviz_config = os.path.join(get_package_share_directory('core_tue4tm00_assignment2'), 'config', 'robot_scan_map_costmap_path.rviz')
+    rviz_config = os.path.join(get_package_share_directory('group11_tue4tm00_assignment2'), 'config', 'robot_scan_map_costmap_path.rviz')
     robocyl_goal_map_launch = GroupAction(
         actions=[
             IncludeLaunchDescription(
@@ -41,7 +41,7 @@ def generate_launch_description():
                 actions=[
                     IncludeLaunchDescription(
                         PythonLaunchDescriptionSource(
-                            os.path.join(get_package_share_directory('core_tue4tm00_assignment2'), 'launch', 'safe_navigation_costmap.launch.py')
+                            os.path.join(get_package_share_directory('group11_tue4tm00_assignment2'), 'launch', 'safe_navigation_costmap.launch.py')
                         )
                     )
                 ],
@@ -68,7 +68,7 @@ def generate_launch_description():
                 actions=[
                     IncludeLaunchDescription(
                         PythonLaunchDescriptionSource(
-                            os.path.join(get_package_share_directory('core_tue4tm00_assignment2'), 'launch', 'search_based_path_planner.launch.py')
+                            os.path.join(get_package_share_directory('group11_tue4tm00_assignment2'), 'launch', 'search_based_path_planner.launch.py')
                         )
                     )
                 ],

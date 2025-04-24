@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(group11_tue4tm00_assignment2)
+project(group11_tue4tm00_project)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -41,9 +41,10 @@ ament_python_install_package(${PROJECT_NAME})
 
 # Install Python executables
 install(PROGRAMS
-  scripts/safe_navigation_costmap.py
-  scripts/search_based_path_planner.py
-  scripts/sensor_based_path_follower.py
+  scripts/costmap.py
+  scripts/path_planner.py
+  scripts/path_follower.py
+  scripts/odometry.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
@@ -51,7 +52,6 @@ install(PROGRAMS
 install(DIRECTORY
   launch
   config
-  maps
   DESTINATION share/${PROJECT_NAME}/
 )
 

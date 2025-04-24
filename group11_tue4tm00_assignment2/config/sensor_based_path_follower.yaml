@@ -2,6 +2,9 @@
     ros__parameters:
         use_sim_time: False
         rate: 10.0
+        velocity_Kp: 0.8
+        waypoint_threshold: 0.3
+        
         
 
     

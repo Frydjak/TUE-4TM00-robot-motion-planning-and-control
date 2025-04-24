@@ -1,8 +1,8 @@
 /**:
     ros__parameters:
         use_sim_time: False
-        rate: 1.0
-        
-
-    
-
+        rate: 5.0
+        min_cost: 1 # Minimum cost in the range of [0, 100]
+        max_cost: 100 # Maximum (unsafe) cost in the range of [0, 100]
+        decay_rate: 0.3 # Decay rate for repulsive cost
+        occupancy_threshold: 0.5

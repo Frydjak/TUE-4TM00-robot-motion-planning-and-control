@@ -14,7 +14,7 @@ def generate_launch_description():
     ld.add_action(use_sim_time)
     namespace = DeclareLaunchArgument('namespace', default_value='myrobot') 
     ld.add_action(namespace)
-    default_config = os.path.join(get_package_share_directory('core_tue4tm00_assignment2'), 'config', 'safe_navigation_costmap.yaml') 
+    default_config = os.path.join(get_package_share_directory('group11_tue4tm00_assignment2'), 'config', 'safe_navigation_costmap.yaml') 
     config = DeclareLaunchArgument('config', default_value=default_config)
     ld.add_action(config)
     pose = DeclareLaunchArgument('pose', default_value='pose')
@@ -29,7 +29,7 @@ def generate_launch_description():
     ld.add_action(costmap)
 
     costmap_node = Node(
-        package='core_tue4tm00_assignment2',
+        package='group11_tue4tm00_assignment2',
         executable='safe_navigation_costmap.py',
         name='navigation_costmap',
         namespace=LaunchConfiguration('namespace'),
