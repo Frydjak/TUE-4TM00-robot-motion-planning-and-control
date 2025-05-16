@@ -14,6 +14,8 @@ This project focuses on developing safe teleoperation and reactive navigation fo
 
 ### Final Project - Safe Robot Navigation under Intermitted Localization
 
+https://github.com/user-attachments/assets/263ec813-00c4-4d6c-95b6-e36b9bb39206
+
 ## Running demos
 Assuming the core_tue4tm00_humble package is installed(https://gitlab.tue.nl/core_robotics/courses/tue4tm00/core_tue4tm00_humble/-/blob/main/README.md?ref_type=heads):
 - Create a ROS workspace
