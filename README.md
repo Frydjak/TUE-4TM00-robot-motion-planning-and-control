@@ -2,6 +2,17 @@
 
 This project focuses on developing safe teleoperation and reactive navigation for the RoboCyl mobile robot using ROS2 in a Gazebo simulation. The teleoperation system adjusts user commands in real-time to ensure collision-free movement based on sensor data. Reactive navigation combines attractive and repulsive forces to autonomously guide the robot toward a goal while avoiding obstacles. Both solutions emphasize modularity, scalability, and safety, addressing key challenges in dynamic and unstructured environments.
 
+## Results
+
+### Assignment 1 - Safe Teleoperation & Reactive Robot Navigation
+[Assignment1_Demo.webm](https://github.com/user-attachments/assets/6310e29d-a6df-4c65-96f4-7ce2e25eccfd)
+
+[Assignment1_PotentialFields.webm](https://github.com/user-attachments/assets/58afd71c-8f55-4e8c-8ac0-ee65bc1a4868)
+
+### Assignment 2 - Search-Based Path Planning & Safe Path Following
+
+### Final Project - Safe Robot Navigation under Intermitted Localization
+
 ## Running demos
 Assuming the core_tue4tm00_humble package is installed(https://gitlab.tue.nl/core_robotics/courses/tue4tm00/core_tue4tm00_humble/-/blob/main/README.md?ref_type=heads):
 - Create a ROS workspace
