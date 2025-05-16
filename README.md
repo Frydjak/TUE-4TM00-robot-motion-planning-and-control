@@ -1,15 +1,17 @@
 # 4TM00 Robot Motion Planning and Control - group 11
-
-This project focuses on developing safe teleoperation and reactive navigation for the RoboCyl mobile robot using ROS2 in a Gazebo simulation. The teleoperation system adjusts user commands in real-time to ensure collision-free movement based on sensor data. Reactive navigation combines attractive and repulsive forces to autonomously guide the robot toward a goal while avoiding obstacles. Both solutions emphasize modularity, scalability, and safety, addressing key challenges in dynamic and unstructured environments.
+This class focused on developing autonomous navigation capabilities for mobile robots using ROS2 and Gazebo simulation. The work is divided into three stages: safe teleoperation, reactive navigation, and multi-goal path planning in complex environments. Each phase progressively integrates more advanced planning, control, and safety mechanisms. Key goals include ensuring collision-free motion, modularity of software, and robustness to localization challenges. Below are short summaries and demo results of each milestone.
 
 ## Results
-### Final Project - Safe Robot Navigation under Intermitted Localization
+### Group Project - Safe Robot Navigation under Intermitted Localization
+Developed a navigation system for a mobile robot with differential drive in a known environment with low-frequency global localization. Combined odometry, costmap generation, A* planning, pure-pursuit path following, and multi-goal management for safe and sequential navigation.
 https://github.com/user-attachments/assets/263ec813-00c4-4d6c-95b6-e36b9bb39206
 
 ### Assignment 2 - Search-Based Path Planning & Safe Path Following
+Implemented a minimum-cost navigation system using a costmap derived from an occupancy grid. Path planning used the A* algorithm, and path following employed a proportional controller for safe execution.
 [Assignment2_Demo.webm](https://github.com/user-attachments/assets/a2dc088c-021b-4586-ab38-c91baaae933a)
 
 ### Assignment 1 - Safe Teleoperation & Reactive Robot Navigation
+Designed a safty layer for manual teleoperation that modifies robots velocity to avoid collisions. Based on laser scan data a potential field is generated which aims to "push" robot away from obstacles.
 [Assignment1_Demo.webm](https://github.com/user-attachments/assets/6310e29d-a6df-4c65-96f4-7ce2e25eccfd)
 
 [Assignment1_PotentialFields.webm](https://github.com/user-attachments/assets/58afd71c-8f55-4e8c-8ac0-ee65bc1a4868)
@@ -69,12 +71,18 @@ ros2 launch group11_tue4tm00_assignment2 demo_safe_navigation_costmap.launch.py
 ```
 or
 ```
-ros2 launch group11_tue4tm00_assignment2 demo_safe_navigation_costmap.launch.py
+ros2 launch group11_tue4tm00_assignment2 demo_search_based_path_planner.launch.py
 ```
 or
 ```
-ros2 launch group11_tue4tm00_assignment2 demo_safe_navigation_costmap.launch.py
+ros2 launch group11_tue4tm00_assignment2 demo_sensor_based_path_follower.launch.py
 ```
+
+for Group Project:
+```
+ros2 launch group11_tue4tm00_assignment1 demo_navigation.launch.py
+```
+
 For smooth path following performance it is recommended to generate path only once, at the beginning of simulation. This can easily be done by modifying `min_move_threshold` value inside `search_based_path_planner.yaml` file to large value, for example: 
 ```
 min_move_threshold: 100
