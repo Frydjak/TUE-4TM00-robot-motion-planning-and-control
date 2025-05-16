@@ -63,20 +63,8 @@ for assignment 1:
 ```
 ros2 launch group11_tue4tm00_assignment1 demo_safe_twist_teleop_2D.launch.py
 ```
-or
-```
-ros2 launch group11_tue4tm00_assignment1 demo_safe_reactive_navigation.launch.py
-```
 
 for assignment 2:
-```
-ros2 launch group11_tue4tm00_assignment2 demo_safe_navigation_costmap.launch.py
-```
-or
-```
-ros2 launch group11_tue4tm00_assignment2 demo_search_based_path_planner.launch.py
-```
-or
 ```
 ros2 launch group11_tue4tm00_assignment2 demo_sensor_based_path_follower.launch.py
 ```
