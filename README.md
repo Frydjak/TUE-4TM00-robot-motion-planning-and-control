@@ -10,6 +10,7 @@ This project focuses on developing safe teleoperation and reactive navigation fo
 [Assignment1_PotentialFields.webm](https://github.com/user-attachments/assets/58afd71c-8f55-4e8c-8ac0-ee65bc1a4868)
 
 ### Assignment 2 - Search-Based Path Planning & Safe Path Following
+[Assignment2_Demo.webm](https://github.com/user-attachments/assets/a2dc088c-021b-4586-ab38-c91baaae933a)
 
 ### Final Project - Safe Robot Navigation under Intermitted Localization
 
