@@ -1,4 +1,4 @@
-# 4TM00 Robot Motion Planning and Control - group 11
+# 4TM00 Robot Motion Planning and Control
 This class focused on developing autonomous navigation capabilities for mobile robots using ROS2 and Gazebo simulation. The work is divided into three stages: safe teleoperation, reactive navigation, and multi-goal path planning in complex environments. Each phase progressively integrates more advanced planning, control, and safety mechanisms. Key goals include ensuring collision-free motion, modularity of software, and robustness to localization challenges. Below are short summaries and demo results of each milestone.
 
 ## Results
@@ -79,3 +79,5 @@ For smooth path following performance it is recommended to generate path only on
 min_move_threshold: 100
 ```
 This will ensure no path updates happen during simulation.
+
+This project was completed in collaboration with one other team member.
